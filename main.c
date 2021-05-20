@@ -6,7 +6,7 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
-#include "gsync.h"
+//#include "gsync.h"
 #include "vsync.h"
 
 /**
@@ -61,7 +61,7 @@ inline double min(double a, double b)
 void initializeFrameRateController(struct FrameRateController *frameRateController)
 {
   frameRateController->frameRateFloor = 10;
-  frameRateController->frameRateMin = 30;
+  frameRateController->frameRateMin = 60;
   frameRateController->frameRateMax = max(60, glutGameModeGet(GLUT_GAME_MODE_REFRESH_RATE));
 }
 
@@ -110,7 +110,7 @@ struct Application
   struct Clock clock;
   struct FrameRateController frameRateController;
 
-  struct GSyncController gsyncController;
+  //struct GSyncController gsyncController;
   struct VSyncController vsyncController;
 
   int animationSpeed;
@@ -131,10 +131,10 @@ void initializeApplication(struct Application *app)
   glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 }
 
-void toggleGSync(struct Application *app)
-{
-  gsyncSetAllowed(&app->gsyncController, !gsyncIsAllowed(&app->gsyncController));
-}
+//void toggleGSync(struct Application *app)
+//{
+//  gsyncSetAllowed(&app->gsyncController, !gsyncIsAllowed(&app->gsyncController));
+//}
 
 void toggleVSync(struct Application *app)
 {
@@ -304,7 +304,7 @@ void drawHUD()
 
   glRasterPos2i(0, 120);
   printStatus("[V] V-SYNC: ", vsyncIsAvailable(&app.vsyncController), vsyncIsEnabled(&app.vsyncController));
-  printStatus("[G] G-SYNC: ", gsyncIsAvailable(&app.gsyncController), gsyncIsAllowed(&app.gsyncController));
+  //printStatus("[G] G-SYNC: ", gsyncIsAvailable(&app.gsyncController), gsyncIsAllowed(&app.gsyncController));
   printText("\n");
   printText("[UP] / [DOWN] Max frame rate: %i\n", app.frameRateController.frameRateMax);
   printText("[PGUP] / [PGDOWN] Min frame rate: %i\n", app.frameRateController.frameRateMin);
@@ -386,7 +386,7 @@ void keyPress(unsigned char key, int x, int y)
     case 27: /* Escape */
     case 'q': glutLeaveMainLoop(); break;
     case 'v': toggleVSync(&app); break;
-    case 'g': toggleGSync(&app); break;
+    //case 'g': toggleGSync(&app); break;
     }
 }
 
@@ -406,13 +406,13 @@ void specialKeyPress(int key, int x, int y)
 
 int main(int argc, char *argv[])
 {
-  gsyncInitialize(&app.gsyncController);
+  //gsyncInitialize(&app.gsyncController);
 
   /* Force G-SYNC Visual Indicator
      For an unknown reason, we must do it twice to make it work...
      (the second call enables the first value) */
-  gsyncShowVisualIndicator(&app.gsyncController, true);
-  gsyncShowVisualIndicator(&app.gsyncController, true);
+  //gsyncShowVisualIndicator(&app.gsyncController, true);
+  //gsyncShowVisualIndicator(&app.gsyncController, true);
 
   /* Initialize GLUT */
   glutInit(&argc, argv);
@@ -440,7 +440,7 @@ int main(int argc, char *argv[])
 
   glutExit();
 
-  gsyncFinalize(&app.gsyncController);
+  //gsyncFinalize(&app.gsyncController);
 
   return 0;
 }

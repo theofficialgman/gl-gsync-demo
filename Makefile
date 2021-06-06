@@ -1,7 +1,7 @@
 CC = gcc
 LD = $(CC)
 CFLAGS += -Wall -O3 -std=c99
-LDFLAGS += -lXNVCtrl -lX11 -lXext -lGL -lGLU -lglut -lGLEW -lm
+LDFLAGS += -lX11 -lXext -lGL -lGLU -lglut -lGLEW -lm
 
 TARGETS = gl-gsync-demo
 
@@ -12,9 +12,8 @@ default: $(TARGETS)
 clean:
 	-rm -rf *.o core.* *~ $(TARGETS)
 
-gl-gsync-demo: main.o gsync.o vsync.o
+gl-gsync-demo: main.o vsync.o
 	$(LD) $^ $(LDFLAGS) -o $@
 
-main.o: main.c gsync.h vsync.h
-gsync.o: gsync.c gsync.h
+main.o: main.c vsync.h
 vsync.o: vsync.c vsync.h

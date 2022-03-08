@@ -1,4 +1,4 @@
-# Unofficial OpenGL G-SYNC Demo for Linux
+# Unofficial OpenGL VSYNC Demo for Linux
 
 This is a very basic OpenGL demo for testing vsync technology on Linux.
 
